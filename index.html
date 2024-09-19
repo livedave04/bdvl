@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicador de Carga</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .loader {
+            display: flex;
+            justify-content: space-between;
+            width: 40px;
+            height: 30px;
+        }
+
+        .bar {
+            width: 6px;
+            background-color: gray;
+            animation: loading 1.5s infinite ease-in-out;
+        }
+
+        .bar:nth-child(1) {
+            height: 10px;
+            animation-delay: 0.1s;
+        }
+
+        .bar:nth-child(2) {
+            height: 15px;
+            animation-delay: 0.2s;
+        }
+
+        .bar:nth-child(3) {
+            height: 25px;
+            animation-delay: 0.3s;
+        }
+
+        .bar:nth-child(4) {
+            height: 20px;
+            animation-delay: 0.4s;
+        }
+
+        .bar:nth-child(5) {
+            height: 10px;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes loading {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(1.5);
+            }
+        }
+        
+    </style>
+    <script>
+        // Redirigir después de 2 segundos
+        setTimeout(function() {
+            window.location.href = "indexs.html"; // Cambia la URL por la que desees
+        }, 2000); // 2000 milisegundos = 2 segundos
+    </script>
+</head>
+<body>
+    <div class="loader">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+</body>
+</html>
